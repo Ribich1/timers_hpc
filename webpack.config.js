@@ -1,6 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-
+const modulesDir = path.resolve(__dirname, "node_modules");
 module.exports = (env) => {
   return {
     mode: env.mode ?? "development",
@@ -21,12 +21,18 @@ module.exports = (env) => {
         {
           test: /\.tsx?$/,
           use: "ts-loader",
-          exclude: /node_modules/,
+          exclude: modulesDir,
+        },
+
+        {
+          test: /\.css$/,
+          exclude: modulesDir,
+          use: [{ loader: "style-loader" }, { loader: "css-loader" }],
         },
       ],
     },
     resolve: {
-      extensions: [".tsx", ".ts", ".js"],
+      extensions: [".tsx", ".ts", ".js", ".css"],
     },
   };
 };
