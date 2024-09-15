@@ -1,15 +1,28 @@
-import React from "react";
-import { Timer } from "../Timer/Timer";
+import React, { useState } from "react";
+import { Timer, TimerDef } from "../Timer/Timer";
+import * as dayjs from "dayjs";
+import "./style.css";
+
+
 
 export const TimersWall = () => {
+  const [timers, setTimers] = useState<TimerDef[]>([]);
+
+  const handleAddTimer = () => {
+    setTimers((currentTimers) => [...currentTimers, { addTime: dayjs() }]);
+  };
+
   return (
-    <div className="timerwall">
-      <Timer value="00:00:00" />
-      <Timer value="00:10:00" />
-      <Timer value="00:20:00" />
-      <Timer value="00:30:00" />
-      <Timer value="00:40:00" />
-      <Timer value="00:50:00" />
+    <div className="timersWall">
+      <div className="timersWallButton">
+        <button onClick={handleAddTimer}>Add</button>
+      </div>
+      <div className="timersWallContainer">
+        {timers.map((timer) => {
+          return <Timer value={timer} />;
+        })}
+      </div>
     </div>
   );
 };
+// 1:43:30
