@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./style.css";
 import dayjs from "dayjs";
 
@@ -12,11 +12,28 @@ interface TimerProps {
 
 export const Timer = (props: TimerProps) => {
   const { addTime } = props.value;
-  const display = addTime.format("HH:mm:ss");
+
+  const [duration, setDuration] = useState(dayjs.duration(0));
+
+  useEffect(() => {
+    setInterval(() => updateDuration(), 1000);
+  }, []);
+
+  const updateDuration = () => {
+    const currentTime = dayjs();
+
+    const nextDuration = dayjs.duration(currentTime.diff(addTime));
+    setDuration(nextDuration);
+  };
+
+  const getValue = () => {
+    return duration.format("HH:mm:ss");
+  };
+  
 
   return (
     <div className="timer">
-      <div className="content">{display}</div>
+      <div className="content">{getValue()}</div>
       <div className="button">
         <button>start</button>
         <button>pause</button>
