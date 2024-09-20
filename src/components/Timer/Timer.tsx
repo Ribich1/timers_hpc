@@ -1,35 +1,29 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { ITimer } from "../../types";
 import "./style.css";
+
 import dayjs from "dayjs";
 
-export interface TimerDef {
-  addTime: dayjs.Dayjs;
+interface TimerCardProps {
+  value: ITimer;
 }
 
-interface TimerProps {
-  value: TimerDef;
-}
-
-export const Timer = (props: TimerProps) => {
+export const TimerCard = (props: TimerCardProps) => {
   const { addTime } = props.value;
 
-  const [duration, setDuration] = useState(dayjs.duration(0));
+  const [startTime, setStartTime] = useState(dayjs());
+  const [_, update] = useState({});
 
   useEffect(() => {
-    setInterval(() => updateDuration(), 1000);
+    setInterval(() => update({}), 1000);
   }, []);
 
-  const updateDuration = () => {
+  const getValue = () => {
     const currentTime = dayjs();
 
-    const nextDuration = dayjs.duration(currentTime.diff(addTime));
-    setDuration(nextDuration);
-  };
-
-  const getValue = () => {
+    const duration = dayjs.duration(currentTime.diff(startTime));
     return duration.format("HH:mm:ss");
   };
-  
 
   return (
     <div className="timer">

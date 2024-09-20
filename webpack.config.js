@@ -19,20 +19,22 @@ module.exports = (env) => {
     module: {
       rules: [
         {
+          test: /\.css$/i,
+          exclude: modulesDir,
+          use: [
+            { loader: "style-loader" },
+            { loader: "css-loader", options: { modules: true } },
+          ],
+        },
+        {
           test: /\.tsx?$/,
           use: "ts-loader",
           exclude: modulesDir,
         },
-
-        {
-          test: /\.css$/,
-          exclude: modulesDir,
-          use: [{ loader: "style-loader" }, { loader: "css-loader" }],
-        },
       ],
     },
     resolve: {
-      extensions: [".tsx", ".ts", ".js", ".css"],
+      extensions: [".tsx", ".ts", ".js", ".jsx", ".css"],
     },
   };
 };
