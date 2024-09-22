@@ -15,14 +15,34 @@ export const TimersWall = () => {
     ]);
   };
 
+  const handlePlay = (timer: ITimer) => {
+    console.log(`play ${timer.id}`);
+  };
+
+  const handlePause = (timer: ITimer) => {
+    console.log(`pause ${timer.id}`);
+  };
+
+  const handleDelete = (timer: ITimer) => {
+    console.log(`delete ${timer.id}`);
+  };
+
   return (
     <div className={css.timersWall}>
       <div className="timersWallButton">
         <button onClick={handleAddTimer}>Add</button>
       </div>
-      <div className="timersWallContainer">
+      <div className={css.timersWallContainer}>
         {timers.map((timer) => {
-          return <TimerCard key={timer.id} value={timer} />;
+          return (
+            <TimerCard
+              key={timer.id}
+              value={timer}
+              onPlay={() => handlePlay(timer)}
+              onPause={() => handlePause(timer)}
+              onDelete={() => handleDelete(timer)}
+            />
+          );
         })}
       </div>
     </div>
