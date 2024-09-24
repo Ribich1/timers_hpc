@@ -24,7 +24,11 @@ export const TimersWall = () => {
   };
 
   const handleDelete = (timer: ITimer) => {
-    console.log(`delete ${timer.id}`);
+    // console.log(timers);
+    // console.log(`delete ${timer.id}`);
+    // const filteredTimerArr = timers.filter((el) => el.id !== timer.id);
+    // console.log(filteredTimerArr);
+    setTimers(timers.filter((el) => el.id !== timer.id));
   };
 
   return (
